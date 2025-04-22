@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
+import Navigations from "@/components/Navigations/Navigations";
+import NavigationBar from "@/components/NavigationBar/NavigationBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +25,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const appLinks = [
+    { name: "Home", href: "/" },
+    { name: "Consignors", href: "/consignor" },
+    { name: "Login", href: "/login" },
+  ]
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
+        <Header>
+          <NavigationBar>
+            <Navigations links={appLinks} />
+          </NavigationBar>
+        </Header>
+        <main className="p-8">
+          {children}
+        </main>
       </body>
     </html>
   );

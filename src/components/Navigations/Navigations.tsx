@@ -1,20 +1,21 @@
 import Link from "next/link";
 
-const Navigations = () => {
+type NavigationProps = {
+  links: {
+    name: string;
+    href: string;
+  }[]
+}
+
+const Navigations = ({ links }: NavigationProps) => {
   return (
-    <nav>
-      <ul className="flex gap-4">
-        <li>
-          <Link href="/">Home</Link>
+    <ul className="flex gap-4 flex-col md:flex-row items-center">
+      {links.map((link) => (
+        <li key={link.name} className="hover:text-blue-500 transition-colors duration-300">
+          <Link href={link.href} className="block">{link.name}</Link>
         </li>
-        <li>
-          <Link href="/consignor">My Consignors</Link>
-        </li>
-        <li>
-          <Link href="/login">Login</Link>
-        </li>
-      </ul>
-    </nav>
+      ))}
+    </ul>
   )
 }
 

@@ -1,13 +1,17 @@
 import Image from "next/image";
-import Navigations from "../Navigations/Navigations";
+import { ReactNode } from "react";
 
-const Header = () => {
+type HeaderProps = {
+  children?: ReactNode;
+}
+
+const Header = ({ children }: HeaderProps) => {
   return (
-    <header className="flex justify-between items-center px-6 py-4 shadow">
+    <header className="flex justify-between items-center px-6 py-4 shadow sticky top-0 z-10">
       <div className="flex items-center">
-        <Image src="/tp_logo.svg" alt="Truckspoint Logo" className="h-10 mr-2" width={50} height={50}/>
+        <Image src="/tp_logo.svg" alt="Truckspoint Logo" className="h-10 mr-2" width={50} height={50} />
       </div>
-      <Navigations />
+      {children}
     </header>
   );
 }
