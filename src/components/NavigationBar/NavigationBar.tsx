@@ -22,7 +22,7 @@ const NavigationBar = ({ children }: NavigationBarProps) => {
             : <PiList size={32} />
         }
       </button>
-      <nav className={`md:block md:static ${isNavOpen ? "block absolute h-full w-full top-20 left-0 overflow-auto bg-white z-10 p-4" : "hidden"}`}>
+      <nav className={`md:block md:static ${isNavOpen ? "block fixed h-full w-full top-20 left-0 overflow-auto bg-white z-10 p-4" : "hidden"}`}>
         { children }
       </nav>
     </div>
