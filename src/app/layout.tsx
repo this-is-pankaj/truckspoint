@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   const appLinks = [
     { name: "Home", href: "/" },
-    { name: "Consignors", href: "/consignor" },
+    { name: "Clients", href: "/clients" },
     { name: "Login", href: "/login" },
   ]
   return (
