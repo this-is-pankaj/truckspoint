@@ -4,12 +4,12 @@ import { PiPlusBold } from "react-icons/pi";
 
 const clients = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8">
       <h2 className="text-xl font-bold text-center">Client List</h2>
-      <div className="flex flex-col gap-2">
-        <p>Here you will find the list of all the clients that have ever used your services. This includes you consignors, consignees, drivers, etc. You can create more so as to speed up your bilty generation process.</p>
+      <div className="flex flex-col gap-4">
+        <p className="px-4">Here you will find the list of all the clients that have ever used your services. This includes you consignors, consignees, drivers, etc. You can create more so as to speed up your bilty generation process.</p>
         <div className="flex flex-row-reverse gap-4 items-center">
-          <Button variant="outline" text="sm" >
+          <Button variant="primary" text="sm" >
             <div className="flex gap-2 items-center">
               <PiPlusBold size={16} /> New Client
             </div>
