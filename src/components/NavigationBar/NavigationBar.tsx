@@ -1,7 +1,7 @@
 'use client';
 
+import { MenuIcon, XIcon } from "lucide-react";
 import { ReactNode, useState } from "react";
-import { PiList, PiX } from "react-icons/pi";
 
 type NavigationBarProps = {
   children: ReactNode;
@@ -18,8 +18,8 @@ const NavigationBar = ({ children }: NavigationBarProps) => {
       <button className="md:hidden" onClick={handleNavToggle}>
         {
           isNavOpen
-            ? <PiX size={32} />
-            : <PiList size={32} />
+            ? <XIcon size={32} />
+            : <MenuIcon size={32} />
         }
       </button>
       <nav className={`md:block md:static ${isNavOpen ? "block fixed h-full w-full top-20 left-0 overflow-auto bg-white z-10 p-4" : "hidden"}`}>
