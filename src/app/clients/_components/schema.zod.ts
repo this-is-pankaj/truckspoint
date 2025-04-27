@@ -38,10 +38,13 @@ Sample data for client form
   "clientFreightType": "string"
 }
 */
+export const gstinFormSchema = z.object({
+  gstin: z.string().regex(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{2}$/, {
+    message: "Invalid GSTIN format",
+  })
+})
+
 export const clientFormSchema = z.object({
-  gstin: z.string().regex(/^[0-9]{2}[A-Z]{4}[0-9]{7}$/, {
-    message: "GSTIN should be in the format 12ABCDE1234F1Z5",
-  }),
   name: z.string().min(1, {
     message: "Name is required",
   }),

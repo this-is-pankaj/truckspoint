@@ -2,13 +2,16 @@ import InputGroup from "@/components/InputGroup/InputGroup";
 import Table from "@/components/Table/Table";
 import Form from 'next/form'
 import { createClient, fetchAllClients } from "../actions/clients";
-import AppForm from "@/components/AppForm/AppForm";
 import ClientForm from "./_components/ClientForm/ClientForm";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
+import GstinForm from "./_components/GstinForm/GstinForm";
+import ClientFormWrapper from "./_components/ClientFormWrapper/ClientFormWrapper";
+import { ClientFormSchema } from "./_components/schema.zod";
 
 const clients = async () => {
   const listOfClients = await fetchAllClients();
+  console.log('listOfClients', listOfClients)
   if (!listOfClients) {
     return (
       <div className="flex flex-col gap-8">
@@ -18,15 +21,15 @@ const clients = async () => {
     )
   }
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (dataToBeSaved: ClientFormSchema) => {
     "use server";
-    const gstin = formData.get("gstin") as string;
-    const dataToBeSaved = {
-      gstin: gstin,
-      name: "Test Client",
-      address: "Test Address",
-      contactNumber: "1234567890",
-    }
+    // const gstin = formData.get("gstin") as string;
+    // const dataToBeSaved = {
+    //   gstin: gstin,
+    //   name: "Test Client",
+    //   address: "Test Address",
+    //   contactNumber: "1234567890",
+    // }
     const res = await createClient(dataToBeSaved);
     if (res) {
       console.log("Client created successfully", res);
@@ -73,7 +76,11 @@ const clients = async () => {
         {/* <Form action={handleSubmit}>
           <InputGroup placeholder="GTSIN" name="gstin" label="GSTIN" />
         </Form> */}
-        <ClientForm onSubmit={handleSubmit} />
+        <ClientFormWrapper onSubmit={handleSubmit} />
+        {/* <div className="max-w-60 mx-auto">
+          <GstinForm />
+        </div>
+        <ClientForm onSubmit={handleSubmit} /> */}
         <Table columns={["Client Name", "Contact Number", "Address", "Actions"]} />
       </div>
     </div>

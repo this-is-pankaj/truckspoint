@@ -21,3 +21,13 @@ export async function createClient(clientData: any) {
   const data = await res.json();
   return data;
 }
+
+export async function fetchGstinDetails(gstin: string) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/get-info?gstin=${gstin}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch client");
+  }
+  const data = await res.json();
+  return data;
+}
+

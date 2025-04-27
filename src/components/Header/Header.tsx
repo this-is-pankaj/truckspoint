@@ -7,7 +7,7 @@ type HeaderProps = {
 
 const Header = ({ children }: HeaderProps) => {
   return (
-    <header className="flex justify-between items-center px-6 py-4 shadow sticky top-0 z-10">
+    <header className="flex justify-between items-center px-6 py-4 shadow sticky top-0 z-10 bg-white">
       <div className="flex items-center">
         <Image src="/tp_logo.svg" alt="Truckspoint Logo" className="h-10 mr-2" width={50} height={50} />
       </div>
