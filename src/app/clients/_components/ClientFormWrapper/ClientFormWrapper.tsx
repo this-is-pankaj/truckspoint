@@ -39,19 +39,18 @@ type ClientFormWrapperProps = {
   onSubmit: (data: any) => void
 }
 
-const ClientFormWrapper = ({onSubmit}: ClientFormWrapperProps) => {
+const ClientFormWrapper = ({ onSubmit }: ClientFormWrapperProps) => {
   const [clientData, setClientData] = useState<ClientFormSchema | null>(null)
   const handleGSTINFetch = (data: any) => {
     setClientData(structureClientData(data))
   }
   return (
     <>
-    <GstinForm onSuccess={handleGSTINFetch} />
-    {
-      !clientData
-      ? null
-      : <ClientForm onSubmit={onSubmit} clientData={clientData} />
-    }
+      {
+        !clientData
+          ? <GstinForm onSuccess={handleGSTINFetch} />
+          : <ClientForm onSubmit={onSubmit} clientData={clientData} />
+      }
     </>
   )
 }

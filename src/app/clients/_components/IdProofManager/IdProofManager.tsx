@@ -5,7 +5,7 @@ import { FormControl, FormItem, FormLabel, FormMessage } from "@/components/ui/f
 import { Input } from "@/components/ui/input";
 import { PlusIcon, Trash } from "lucide-react";
 
-type ContactListManagerProps = {
+type IdProofManagerProps = {
   control: Control<ClientFormSchema>
   register: UseFormRegister<ClientFormSchema>
   name: any
@@ -13,14 +13,19 @@ type ContactListManagerProps = {
   label?: string
 }
 
-const ContactListManager = ({ control, name, register, title = "Manage contact", label }: ContactListManagerProps) => {
+const initValue = {
+  type: '',
+  value: ''
+}
+
+const IdProofManager = ({ control, name, register, title = "Manage contact", label }: IdProofManagerProps) => {
   const { fields, append, remove } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormProvider)
     name: name as any, // unique name for your Field Array
   });
 
   const addNewItem = () => {
-    append('')
+    append(initValue)
   }
 
   const handleRemoveItem = (index: number) => {
@@ -40,10 +45,16 @@ const ContactListManager = ({ control, name, register, title = "Manage contact",
           <FormItem key={field.id}>
             <FormControl className="px-4">
               <div className="flex gap-4 items-end">
-                <div className="flex flex-col gap-2 flex-1">
-                  <FormLabel>{label}</FormLabel>
-                  <Input placeholder="" {...register(`${name}.${index}` as any)} />
-                </div>
+                {
+                  Object.keys(initValue).map((v) => {
+                    return (
+                      <div key={`${field.id}_${v}`} className="flex flex-col gap-2 flex-1">
+                        <FormLabel><span className="capitalize">{v}</span></FormLabel>
+                        <Input placeholder="" {...register(`${name}.${index}.${v}` as any)} disabled={index === 0} />
+                      </div>
+                    )
+                  })
+                }
                 <Button type="button" variant='ghost' onClick={() => handleRemoveItem(index)} className="cursor-pointer"><Trash className="text-red-600" /></Button>
               </div>
             </FormControl>
@@ -55,4 +66,4 @@ const ContactListManager = ({ control, name, register, title = "Manage contact",
   );
 }
 
-export default ContactListManager;
+export default IdProofManager;
