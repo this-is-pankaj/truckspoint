@@ -29,9 +29,9 @@ const ContactListManager = ({ control, name, register, title="Manage contact", l
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-between items-center gap-4">
-        <p className="font-bold">{ title }</p>
-        <Button type="button" onClick={addNewItem}>
+      <div className="flex justify-between items-baseline gap-4">
+        <p className="font-bold">{ title } ({fields.length})</p>
+        <Button type="button" onClick={addNewItem} variant="ghost" className="text-primary-foreground border border-transparent hover:bg-transparent hover:border-primary-foreground transition-all duration-300 ease-in hover:text-primary-foreground gap-1 cursor-pointer">
           <PlusIcon /> New
         </Button>
       </div>

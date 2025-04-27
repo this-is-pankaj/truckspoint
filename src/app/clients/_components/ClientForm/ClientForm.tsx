@@ -29,7 +29,7 @@ const ClientForm = ({ onSubmit, clientData }: ClientFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-8">
         <div className="flex gap-4">
           <FormField control={form.control} name="name" render={({ field }) => {
             return <FormItem>
@@ -55,19 +55,22 @@ const ClientForm = ({ onSubmit, clientData }: ClientFormProps) => {
         </div>
         <div className="flex flex-col gap-4">
           <h2>Contact Information</h2>
-          <div className="flex gap-4 flex-col sm:flex-row">
+          <div className="grid gap-4 grid-rows-3 md:grid-cols-3 md:grid-rows-1">
             <div className="border p-4">
-              <ContactListManager title="Manage Emails" register={form.register} control={form.control} name="email" label="Email" />
+              <ContactListManager title="Emails" register={form.register} control={form.control} name="email" label="Email" />
             </div>
             <div className="border p-4">
-              <ContactListManager title="Manage Mobile numbers" register={form.register} control={form.control} name="mobileNumber" label="Mobile number" />
+              <ContactListManager title="Mobile numbers" register={form.register} control={form.control} name="mobileNumber" label="Mobile number" />
             </div>
             <div className="border p-4">
-              <ContactListManager title="Manage Phone numbers" register={form.register} control={form.control} name="phoneNumber" label="Phone number" />
+              <ContactListManager title="Phone numbers" register={form.register} control={form.control} name="phoneNumber" label="Phone number" />
             </div>
           </div>
         </div>
-        <Button type="submit">Create</Button>
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
+          <Button type="submit">Create</Button>
+          <Button type="button" variant="secondary">Cancel</Button>
+        </div>
       </form>
     </Form>
   )
