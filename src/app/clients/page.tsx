@@ -1,11 +1,11 @@
 import InputGroup from "@/components/InputGroup/InputGroup";
 import Table from "@/components/Table/Table";
-import { PiPlusBold } from "react-icons/pi";
 import Form from 'next/form'
 import { createClient, fetchAllClients } from "../actions/clients";
 import AppForm from "@/components/AppForm/AppForm";
 import ClientForm from "./_components/ClientForm/ClientForm";
 import { Button } from "@/components/ui/button";
+import { PlusIcon } from "lucide-react";
 
 const clients = async () => {
   const listOfClients = await fetchAllClients();
@@ -43,7 +43,7 @@ const clients = async () => {
         <div className="flex flex-row-reverse gap-4 items-center">
           <Button>
             <div className="flex gap-2 items-center">
-              <PiPlusBold size={16} /> New Client
+              <PlusIcon /> New Client
             </div>
           </Button>
           <Form action="/api/get-info">
