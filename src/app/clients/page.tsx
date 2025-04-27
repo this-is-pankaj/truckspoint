@@ -1,11 +1,7 @@
-import InputGroup from "@/components/InputGroup/InputGroup";
 import Table from "@/components/Table/Table";
-import Form from 'next/form'
 import { createClient, fetchAllClients } from "../actions/clients";
-import ClientForm from "./_components/ClientForm/ClientForm";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
-import GstinForm from "./_components/GstinForm/GstinForm";
 import ClientFormWrapper from "./_components/ClientFormWrapper/ClientFormWrapper";
 import { ClientFormSchema } from "./_components/schema.zod";
 
@@ -23,13 +19,6 @@ const clients = async () => {
 
   const handleSubmit = async (dataToBeSaved: ClientFormSchema) => {
     "use server";
-    // const gstin = formData.get("gstin") as string;
-    // const dataToBeSaved = {
-    //   gstin: gstin,
-    //   name: "Test Client",
-    //   address: "Test Address",
-    //   contactNumber: "1234567890",
-    // }
     const res = await createClient(dataToBeSaved);
     if (res) {
       console.log("Client created successfully", res);
@@ -49,39 +38,9 @@ const clients = async () => {
               <PlusIcon /> New Client
             </div>
           </Button>
-          <Form action="/api/get-info">
-            <InputGroup type="search" placeholder="Search" name="gstin" />
-          </Form>
         </div>
-        {/* <div className="overflow-auto w-full">
-          <table className="w-full border-collapse border border-gray-300">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="border border-gray-300 px-4 py-2">Client Name</th>
-                <th className="border border-gray-300 px-4 py-2">Contact Number</th>
-                <th className="border border-gray-300 px-4 py-2">Address</th>
-                <th className="border border-gray-300 px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border border-gray-300 px-4 py-2">1</td>
-                <td className="border border-gray-300 px-4 py-2">1</td>
-                <td className="border border-gray-300 px-4 py-2">1</td>
-                <td className="border border-gray-300 px-4 py-2">1</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> */}
-        {/* <Form action={handleSubmit}>
-          <InputGroup placeholder="GTSIN" name="gstin" label="GSTIN" />
-        </Form> */}
         <ClientFormWrapper onSubmit={handleSubmit} />
-        {/* <div className="max-w-60 mx-auto">
-          <GstinForm />
-        </div>
-        <ClientForm onSubmit={handleSubmit} /> */}
-        <Table columns={["Client Name", "Contact Number", "Address", "Actions"]} />
+        {/* <Table columns={["Client Name", "Contact Number", "Address", "Actions"]} /> */}
       </div>
     </div>
   )
