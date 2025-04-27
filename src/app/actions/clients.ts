@@ -1,0 +1,23 @@
+export async function fetchAllClients() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/clients`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch clients");
+  }
+  const data = await res.json();
+  return data;
+}
+
+export async function createClient(clientData: any) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/client`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(clientData),
+  });
+  if (!res.ok) {
+    throw new Error("Failed to create client");
+  }
+  const data = await res.json();
+  return data;
+}
