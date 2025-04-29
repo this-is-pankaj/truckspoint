@@ -48,7 +48,7 @@ export default function RootLayout({
                 appLinks.map((link) => (
                   <NavigationMenuItem key={link.name}>
                     <Link href={link.href} passHref>
-                      <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 'text-white bg-transparent transition-colors duration-300 hover:bg-transparent hover:text-logo-color')}>
+                      <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 'text-white bg-transparent transition-colors duration-300 hover:bg-transparent hover:text-logo-color text-base')}>
                         {link.name}
                       </NavigationMenuLink>
                     </Link>
