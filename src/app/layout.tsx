@@ -6,6 +6,7 @@ import Navigations from "@/components/Navigations/Navigations";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
         <Header>
           {/* <NavigationBar>
@@ -47,7 +48,7 @@ export default function RootLayout({
                 appLinks.map((link) => (
                   <NavigationMenuItem key={link.name}>
                     <Link href={link.href} passHref>
-                      <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 'text-white bg-transparent transition-colors duration-300 hover:bg-transparent hover:text-logo-color')}>
                         {link.name}
                       </NavigationMenuLink>
                     </Link>

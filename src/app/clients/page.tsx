@@ -39,7 +39,9 @@ const clients = async () => {
             </div>
           </Button>
         </div>
-        <ClientFormWrapper onSubmit={handleSubmit} />
+        <div className="shadow-md p-8 bg-white rounded-md">
+          <ClientFormWrapper onSubmit={handleSubmit} />
+        </div>
         {/* <Table columns={["Client Name", "Contact Number", "Address", "Actions"]} /> */}
       </div>
     </div>
