@@ -32,7 +32,7 @@ const ClientForm = ({ onSubmit, clientData }: ClientFormProps) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <h2>Basic Information</h2>
+          <h2>Primary Information</h2>
           <div className="grid gap-4 items-start grid-rows-2 md:grid-cols-2 md:grid-rows-1">
             <div className="flex flex-col gap-4 px-4">
               <FormField control={form.control} name="name" render={({ field }) => {

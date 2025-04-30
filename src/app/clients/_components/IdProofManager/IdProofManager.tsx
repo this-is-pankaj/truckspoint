@@ -50,7 +50,7 @@ const IdProofManager = ({ control, name, register, title = "Manage contact", lab
                     return (
                       <div key={`${field.id}_${v}`} className="flex flex-col gap-2 flex-1">
                         <FormLabel><span className="capitalize">{v}</span></FormLabel>
-                        <Input placeholder="" {...register(`${name}.${index}.${v}` as any)} disabled={index === 0} />
+                        <Input placeholder="" {...register(`${name}.${index}.${v}` as any)} />
                       </div>
                     )
                   })

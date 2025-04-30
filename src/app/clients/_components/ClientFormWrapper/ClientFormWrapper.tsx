@@ -48,7 +48,9 @@ const ClientFormWrapper = ({ onSubmit }: ClientFormWrapperProps) => {
     <>
       {
         !clientData
-          ? <GstinForm onSuccess={handleGSTINFetch} />
+          ? <div className="m-auto max-w-80">
+            <GstinForm onSuccess={handleGSTINFetch} />
+          </div>
           : <ClientForm onSubmit={onSubmit} clientData={clientData} />
       }
     </>
