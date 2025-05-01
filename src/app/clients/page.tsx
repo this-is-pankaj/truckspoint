@@ -24,7 +24,7 @@ const clients = async () => {
   }
 
   const getCompleteAddress = (address: AddressSchema) => {
-    if(!address) {
+    if (!address) {
       return 'Address unavailable'
     }
     return `${address.streetName},\n ${address.city}-${address.pincode}, ${address.state}`
@@ -42,44 +42,46 @@ const clients = async () => {
             </div>
           </Link>
         </div>
-        <div className="shadow-md p-8 bg-white rounded-md w-6xl m-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {
-                  tableColumns.map((t, index) => (
-                    <TableHead key={index}>
-                      {t}
-                    </TableHead>
-                  ))
-                }
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+        <Table className="shadow-md p-8 bg-white rounded-md lg:max-w-6xl m-auto">
+          <TableHeader>
+            <TableRow>
               {
-                listOfClients.map((client) => {
-                  return <TableRow key={client.name}>
-                    <TableCell>
-                      {client.name}
-                    </TableCell>
-                    <TableCell>
-                      {getPrimaryValueFromTheList(client.mobileNumber ?? [])}
-                    </TableCell>
-                    <TableCell className="max-w-80 whitespace-pre-line">
-                      {getCompleteAddress(getPrimaryValueFromTheList(client.address ?? []))}
-                    </TableCell>
-                    <TableCell>
-                      <Button variant='ghost'>
-                        <TrashIcon />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                })
-
+                tableColumns.map((t, index) => (
+                  <TableHead key={index}>
+                    {t}
+                  </TableHead>
+                ))
               }
-            </TableBody>
-          </Table>
-        </div>
+            </TableRow>
+          </TableHeader>
+          {
+            !listOfClients.length
+              ? <p className="text-center p-8"> No clients added yet.</p>
+              : <TableBody>
+                {
+                  listOfClients.map((client) => {
+                    return <TableRow key={client.name}>
+                      <TableCell>
+                        {client.name}
+                      </TableCell>
+                      <TableCell>
+                        {getPrimaryValueFromTheList(client.mobileNumber ?? [])}
+                      </TableCell>
+                      <TableCell className="max-w-80 whitespace-pre-line">
+                        {getCompleteAddress(getPrimaryValueFromTheList(client.address ?? []))}
+                      </TableCell>
+                      <TableCell>
+                        <Button variant='ghost'>
+                          <TrashIcon />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  })
+
+                }
+              </TableBody>
+          }
+        </Table>
       </div>
     </div>
   )
