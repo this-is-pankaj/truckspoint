@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import ContactListManager from "../ContactListManager/ContactListManager"
 import { Button } from "@/components/ui/button"
 import IdProofManager from "../IdProofManager/IdProofManager"
+import AddressManager from "../AddressManager/AddressManager"
 
 type ClientFormProps = {
   onSubmit: (data: any) => void
@@ -30,7 +31,7 @@ const ClientForm = ({ onSubmit, clientData }: ClientFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-8">
+      <form onSubmit={form.handleSubmit(handleSubmit, (x) => {console.log(x) })} className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <h2>Primary Information</h2>
           <div className="grid gap-4 items-start grid-rows-2 md:grid-cols-2 md:grid-rows-1">
@@ -64,15 +65,20 @@ const ClientForm = ({ onSubmit, clientData }: ClientFormProps) => {
         </div>
         <div className="flex flex-col gap-4">
           <h2>Contact Information</h2>
-          <div className="grid gap-4 grid-rows-3 md:grid-cols-3 md:grid-rows-1 items-baseline">
-            <div className="border p-4">
-              <ContactListManager title="Emails" register={form.register} control={form.control} name="email" label="Email" />
+          <div className="grid gap-4 grid-cols-1 lg:grid-cols-3 items-baseline">
+            <div className="border p-4 lg:col-span-2">
+              <AddressManager title="Addresses" register={form.register} control={form.control} name="address" />
             </div>
-            <div className="border p-4">
-              <ContactListManager title="Mobile numbers" register={form.register} control={form.control} name="mobileNumber" label="Mobile number" />
-            </div>
-            <div className="border p-4">
-              <ContactListManager title="Phone numbers" register={form.register} control={form.control} name="phoneNumber" label="Phone number" />
+            <div className="flex flex-col gap-4">
+              <div className="border p-4">
+                <ContactListManager title="Emails" register={form.register} control={form.control} name="email" label="Email" />
+              </div>
+              <div className="border p-4">
+                <ContactListManager title="Mobile numbers" register={form.register} control={form.control} name="mobileNumber" label="Mobile number" />
+              </div>
+              <div className="border p-4">
+                <ContactListManager title="Phone numbers" register={form.register} control={form.control} name="phoneNumber" label="Phone number" />
+              </div>
             </div>
           </div>
         </div>

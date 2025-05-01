@@ -6,7 +6,6 @@ import GstinForm from "../GstinForm/GstinForm"
 import ClientForm from "../ClientForm/ClientForm"
 
 const structureClientData = (data: any): ClientFormSchema => {
-  console.log("Structuring client data", data)
   return {
     idProof: [
       {
