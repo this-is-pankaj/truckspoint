@@ -44,29 +44,31 @@ export const gstinFormSchema = z.object({
   })
 })
 
+const addressSchema = z.object({
+  streetName: z.string().min(1, {
+    message: "Street name is required",
+  }),
+  city: z.string().min(1, {
+    message: "City is required",
+  }),
+  state: z.string().min(1, {
+    message: "State is required",
+  }),
+  pincode: z.string().regex(/^[0-9]{6}$/, {
+    message: "Pincode should be 6 digits",
+  }),
+  landmark: z.string().optional(),
+  coordinates: z.array(z.string()).optional(),
+  primary: z.boolean().optional(),
+})
+
 export const clientFormSchema = z.object({
   name: z.string().min(1, {
     message: "Name is required",
   }),
   nameHindi: z.string().optional(),
   address: z.array(
-    z.object({
-      streetName: z.string().min(1, {
-        message: "Street name is required",
-      }),
-      city: z.string().min(1, {
-        message: "City is required",
-      }),
-      state: z.string().min(1, {
-        message: "State is required",
-      }),
-      pincode: z.string().regex(/^[0-9]{6}$/, {
-        message: "Pincode should be 6 digits",
-      }),
-      landmark: z.string().optional(),
-      coordinates: z.array(z.string()).optional(),
-      primary: z.boolean().optional(),
-    })
+    addressSchema
   ).optional(),
   mobileNumber: z.array(z.string().regex(/^[0-9]{10}$/, {
     message: "Mobile number should be 10 digits",
@@ -90,3 +92,5 @@ export const clientFormSchema = z.object({
 })
 
 export type ClientFormSchema = z.infer<typeof clientFormSchema>
+
+export type AddressSchema = z.infer<typeof addressSchema>
