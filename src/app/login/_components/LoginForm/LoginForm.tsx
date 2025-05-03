@@ -8,10 +8,12 @@ import { loginFormSchema, LoginFormSchema } from "../schema.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { logUserInAction } from "@/app/actions/auth.action";
+import { useState } from "react";
 
 type LoginFormProps = {}
 
 const LoginForm = ({  }: LoginFormProps) => {
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -25,10 +27,14 @@ const LoginForm = ({  }: LoginFormProps) => {
   const handleSubmit = async (formData: LoginFormSchema) => {
     try {
       const res = await logUserInAction(formData);
-      if (res) {
+      console.log("Login response", res)
+      if (res.status === 200) {
         console.log("Login successful", res)
         // handle success
       } else {
+        if(res.status === 401) {
+          setInvalidCredentials(true)
+        }
         console.log("Login failed")
         // handle failure
       }
@@ -73,6 +79,10 @@ const LoginForm = ({  }: LoginFormProps) => {
           </FormItem>
         }
         } />
+        { invalidCredentials
+          ? <p className="text-red-600 text-xs">Invalid username or password</p>
+          : null
+        }
         <Button variant='default' type="submit" disabled={!form.formState.isValid}>Login</Button>
       </form>
     </Form>
