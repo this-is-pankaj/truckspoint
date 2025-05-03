@@ -21,7 +21,7 @@ const ClientForm = ({ onSubmit, clientData }: ClientFormProps) => {
   const form = useForm<ClientFormSchema>({
     resolver: zodResolver(clientFormSchema),
     defaultValues: { ...clientData },
-    mode: "onBlur",
+    mode: "all",
   })
   const handleSubmit = async (formData: ClientFormSchema) => {
     console.log("Form data", formData)

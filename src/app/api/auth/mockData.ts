@@ -1,0 +1,1 @@
+export const registrations: Record<string, any>[] = []
