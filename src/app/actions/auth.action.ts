@@ -2,7 +2,6 @@
 
 import { authenticateUser, createUser } from "@/lib/services/user";
 import { LoginFormSchema, SignupFormSchema } from "../login/_components/schema.zod";
-import { LoginCredentials } from "@/lib/types";
 
 export async function logUserInAction(credentials: LoginFormSchema) {
   const { username, password, rememberMe=false } = credentials;
