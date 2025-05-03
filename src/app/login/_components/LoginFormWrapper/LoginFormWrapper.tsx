@@ -5,13 +5,15 @@ import { useState } from "react";
 import LoginForm from "../LoginForm/LoginForm";
 import { cn } from "@/lib/utils";
 import SignupForm from "../SignUpForm/SignupForm";
+import { SignupFormSchema } from "../schema.zod";
 
 type LoginFormWrapperProps = {
   onLogin: (data: any) => void;
+  onSignup: (data: SignupFormSchema) => void;
   salt: string;
 }
 
-const LoginFormWrapper = ({ onLogin, salt }: LoginFormWrapperProps) => {
+const LoginFormWrapper = ({ onLogin, onSignup, salt }: LoginFormWrapperProps) => {
   const [isLoginFromActive, setIsLoginFormActive] = useState(true)
 
   const handleLogin = async (formData: any) => {
@@ -46,7 +48,7 @@ const LoginFormWrapper = ({ onLogin, salt }: LoginFormWrapperProps) => {
         {
           isLoginFromActive
             ? < LoginForm onLogin={handleLogin} />
-            : <SignupForm />
+            : <SignupForm onSignup={onSignup} />
         }
       </div>
     </div>

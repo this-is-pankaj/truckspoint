@@ -4,6 +4,11 @@ export async function POST(request: Request) {
   console.log("POST registrations");
   const body = await request.json();
   // Temporarily push it in the mock data
-  registrations.push({...body});
-  return new Response(JSON.stringify(registrations), { status: 200 });
+  const matchedUser = registrations.find((user) => {
+    return user.email === body.email && user.password === body.password;
+  });
+  if (!matchedUser) {
+    return new Response("Invalid credentials", { status: 401 });
+  }
+  return new Response(JSON.stringify(matchedUser), { status: 200 });
 }

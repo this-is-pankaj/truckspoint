@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 
-const SignupForm = () => {
+type SignupFormProps = {
+  onSignup: (data: SignupFormSchema) => void
+}
+
+const SignupForm = ({ onSignup }: SignupFormProps) => {
   const form = useForm<SignupFormSchema>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {},
@@ -15,9 +19,7 @@ const SignupForm = () => {
   })
 
   const handleSubmit = async (formData: SignupFormSchema) => {
-    console.log("Form data", formData)
-    // validate the form data and if all looks good, call the onSubmit function
-    // onSubmit(formData)
+    onSignup(formData)
   }
   
   return (
