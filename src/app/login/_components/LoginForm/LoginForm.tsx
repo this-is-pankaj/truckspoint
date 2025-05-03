@@ -7,13 +7,11 @@ import { useForm } from "react-hook-form";
 import { loginFormSchema, LoginFormSchema } from "../schema.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
-import { logUserIn } from "@/app/actions/auth";
+import { logUserInAction } from "@/app/actions/auth.action";
 
-type LoginFormProps = {
-  onLogin: (data: any) => void
-}
+type LoginFormProps = {}
 
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const LoginForm = ({  }: LoginFormProps) => {
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -25,7 +23,18 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   })
 
   const handleSubmit = async (formData: LoginFormSchema) => {
-    onLogin(formData)
+    try {
+      const res = await logUserInAction(formData);
+      if (res) {
+        console.log("Login successful", res)
+        // handle success
+      } else {
+        console.log("Login failed")
+        // handle failure
+      }
+    } catch(exc: any) {
+      console.log('Exception while logging in', JSON.stringify(exc))
+    }
   }
 
   return (

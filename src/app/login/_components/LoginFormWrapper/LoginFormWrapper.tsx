@@ -5,22 +5,14 @@ import { useState } from "react";
 import LoginForm from "../LoginForm/LoginForm";
 import { cn } from "@/lib/utils";
 import SignupForm from "../SignUpForm/SignupForm";
-import { SignupFormSchema } from "../schema.zod";
 
 type LoginFormWrapperProps = {
-  onLogin: (data: any) => void;
-  onSignup: (data: SignupFormSchema) => void;
   salt: string;
 }
 
-const LoginFormWrapper = ({ onLogin, onSignup, salt }: LoginFormWrapperProps) => {
+const LoginFormWrapper = ({ salt }: LoginFormWrapperProps) => {
   const [isLoginFromActive, setIsLoginFormActive] = useState(true)
 
-  const handleLogin = async (formData: any) => {
-    console.log("Form data from LoginWrapper", formData)
-    // validate the form data and if all looks good, call the onSubmit function
-    onLogin(formData)
-  }
   return (
     <div className="shadow-md p-8 bg-white rounded-md flex flex-col gap-2">
       <div className="flex gap-2 justify-center">
@@ -47,8 +39,8 @@ const LoginFormWrapper = ({ onLogin, onSignup, salt }: LoginFormWrapperProps) =>
       })}>
         {
           isLoginFromActive
-            ? < LoginForm onLogin={handleLogin} />
-            : <SignupForm onSignup={onSignup} />
+            ? < LoginForm />
+            : <SignupForm />
         }
       </div>
     </div>

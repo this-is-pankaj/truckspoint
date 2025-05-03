@@ -6,12 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { signUserUpAction } from "@/app/actions/auth.action";
 
 type SignupFormProps = {
-  onSignup: (data: SignupFormSchema) => void
+  
 }
 
-const SignupForm = ({ onSignup }: SignupFormProps) => {
+const SignupForm = ({ }: SignupFormProps) => {
   const form = useForm<SignupFormSchema>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {},
@@ -19,7 +20,14 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
   })
 
   const handleSubmit = async (formData: SignupFormSchema) => {
-    onSignup(formData)
+    const res = await signUserUpAction(formData)
+    if (res) {
+      console.log("Signup successful", res)
+      // handle success
+    } else {
+      console.log("Signup failed")
+      // handle failure
+    }
   }
   
   return (
