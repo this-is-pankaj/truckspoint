@@ -39,15 +39,14 @@ const LoginFormWrapper = ({ onLogin, salt }: LoginFormWrapperProps) => {
           Sign up
         </Button>
       </div>
-      <div className="shadow p-4">
+      <div className={cn("shadow p-4 transition-all duration-300", {
+        'md:w-80': isLoginFromActive,
+        'md:w-xl': !isLoginFromActive,
+      })}>
         {
           isLoginFromActive
-            ? <div className="md:w-80">
-              <LoginForm onLogin={handleLogin}/>
-            </div>
-            : <div className="md:w-xl">
-              <SignupForm />
-            </div>
+            ? < LoginForm onLogin={handleLogin} />
+            : <SignupForm />
         }
       </div>
     </div>
