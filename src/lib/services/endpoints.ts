@@ -4,7 +4,7 @@ export const endpoints = {
     method: 'POST',
   },
   login: {
-    url: 'api/auth',
+    url: 'api/auth/login',
     method: 'POST',
   }
 } as const;
