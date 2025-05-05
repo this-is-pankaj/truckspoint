@@ -17,12 +17,19 @@ export async function logUserInAction(credentials: LoginFormSchema) {
 
 export async function signUserUpAction(userInformation: SignupFormSchema) {
   const { firstName, lastName, email, password, phoneNumber, middleName } = userInformation;
-  return await createUser({
-    firstName,
-    lastName,
-    email,
-    password,
-    phoneNumber,
-    middleName,
-  });
+  try {
+    return await createUser({
+      firstName,
+      lastName,
+      email,
+      password,
+      phoneNumber,
+      middleName,
+    });
+  } catch (err: any) {
+    return {
+      status: err.status || 500,
+      message: err.statusText || 'Error signing up. Please try again later.',
+    }
+  }
 }

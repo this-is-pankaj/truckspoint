@@ -7,12 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { signUserUpAction } from "@/app/actions/auth.action";
+import { useState } from "react";
 
 type SignupFormProps = {
   
 }
 
 const SignupForm = ({ }: SignupFormProps) => {
+  const [errorStatusCode, setErrorStatusCode] = useState<string | undefined>(undefined)
   const form = useForm<SignupFormSchema>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {},
@@ -22,10 +24,16 @@ const SignupForm = ({ }: SignupFormProps) => {
   const handleSubmit = async (formData: SignupFormSchema) => {
     const res = await signUserUpAction(formData)
     if (res) {
-      console.log("Signup successful", res)
-      // handle success
+      if(res.status === 200) {
+        console.log("User signed up successfully", res)
+        setErrorStatusCode(undefined)
+        // handle success
+      } else {
+        setErrorStatusCode(res.status.toString())
+      }
     } else {
       console.log("Signup failed")
+      setErrorStatusCode('500')
       // handle failure
     }
   }
@@ -89,7 +97,7 @@ const SignupForm = ({ }: SignupFormProps) => {
             return <FormItem className="flex-1">
               <FormLabel>Password:</FormLabel>
               <FormControl>
-                <Input placeholder="Password" {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
               <FormDescription className={cn("text-xs px-1", {
                 "text-red-600": form.formState.errors.password
@@ -104,7 +112,7 @@ const SignupForm = ({ }: SignupFormProps) => {
             return <FormItem className="flex-1">
               <FormLabel>Confirm password:</FormLabel>
               <FormControl>
-                <Input placeholder="Confirm password" {...field} />
+                <Input type="password" placeholder="Confirm password" {...field} />
               </FormControl>
               <FormMessage className="text-xs" />
             </FormItem>
@@ -145,6 +153,17 @@ const SignupForm = ({ }: SignupFormProps) => {
           }
           } />
         </div>
+        {
+          !errorStatusCode
+            ? null
+            : <p className="text-red-600 text-xs text-center">
+              {errorStatusCode === '500'
+                ? "Something went wrong. Please try again later."
+                : errorStatusCode === '409'
+                  ? "User already exists. Please try again with a different email or phone number."
+                  : "An unknown error occurred. Please try again later."}
+            </p>
+        }
         <Button type="submit" disabled={!form.formState.isValid} className="">Sign up</Button>
       </form>
     </Form>
