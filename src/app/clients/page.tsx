@@ -1,4 +1,4 @@
-import { fetchAllClients } from "../actions/clients.action";
+import { fetchAllClientsAction } from "../actions/clients.action";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -6,7 +6,7 @@ import { AddressSchema, ClientFormSchema } from "./_components/schema.zod";
 import { Button } from "@/components/ui/button";
 
 const clients = async () => {
-  const listOfClients: ClientFormSchema[] = await fetchAllClients();
+  const listOfClients: ClientFormSchema[] = await fetchAllClientsAction();
   console.log('listOfClients', listOfClients)
   const tableColumns = ["Client Name", "Contact Number", "Address", "Actions"]
   if (!listOfClients) {

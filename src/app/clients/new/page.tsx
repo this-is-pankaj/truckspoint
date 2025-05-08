@@ -1,4 +1,4 @@
-import { createClient } from "@/app/actions/clients.action";
+import { createClientAction } from "@/app/actions/clients.action";
 import ClientFormWrapper from "../_components/ClientFormWrapper/ClientFormWrapper";
 import { ClientFormSchema } from "../_components/schema.zod";
 import { redirect } from "next/navigation";
@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 const NewClient = () => {
   const handleSubmit = async (dataToBeSaved: ClientFormSchema) => {
     "use server";
-    const res = await createClient(dataToBeSaved);
+    const res = await createClientAction(dataToBeSaved);
     if (res) {
       console.log("Client created successfully", res);
       redirect('/clients')

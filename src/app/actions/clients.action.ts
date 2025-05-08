@@ -1,33 +1,17 @@
-export async function fetchAllClients() {
-  const res = await fetch(`http://localhost:3000/api/clients`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch clients");
-  }
-  const data = await res.json();
+import { makeCall } from "@/lib/services/makeCall";
+
+export async function fetchAllClientsAction() {
+  const data = await makeCall({ action: 'getAllClients', options: {} });
   return data;
 }
 
-export async function createClient(clientData: any) {
-  const res = await fetch(`http://localhost:3000/api/client`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(clientData),
-  });
-  if (!res.ok) {
-    throw new Error("Failed to create client");
-  }
-  const data = await res.json();
+export async function createClientAction(clientData: any) {
+  const data = await makeCall({ action: 'createClient', options: {} }, clientData);
   return data;
 }
 
-export async function fetchGstinDetails(gstin: string) {
-  const res = await fetch(`http://localhost:3000/api/get-info?gstin=${gstin}`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch client");
-  }
-  const data = await res.json();
+export async function fetchGstinDetailsAction(gstin: string) {
+  const data = await makeCall({ action: 'getInfoFromGstin', params: { gstin } });
   return data;
 }
 

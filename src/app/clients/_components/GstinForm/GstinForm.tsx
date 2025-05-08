@@ -5,7 +5,7 @@ import { gstinFormSchema } from "../schema.zod"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { fetchGstinDetails } from "@/app/actions/clients.action"
+import { fetchGstinDetailsAction } from "@/app/actions/clients.action"
 
 type GstinFormProps = {
   onSuccess: (data: any) => void
@@ -22,7 +22,7 @@ const GstinForm = ({ onSuccess }: GstinFormProps) => {
 
   const handleFetchDetails = async ({ gstin }: any) => {
     console.log("Fetching details for GSTIN:", gstin)
-    const res = await fetchGstinDetails(gstin)
+    const res = await fetchGstinDetailsAction(gstin)
     if (res) {
       onSuccess(res)
     } else {

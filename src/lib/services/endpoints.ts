@@ -1,3 +1,4 @@
+import { clientsEndpoints } from "./_endpoints/clients";
 import { tenantsEndpoints } from "./_endpoints/tenants";
 
 export const endpoints = {
@@ -9,7 +10,8 @@ export const endpoints = {
     url: 'api/auth/login',
     method: 'POST',
   },
-  ...tenantsEndpoints
+  ...tenantsEndpoints,
+  ...clientsEndpoints,
 } as const;
 
 export type ApiActions = keyof typeof endpoints;
