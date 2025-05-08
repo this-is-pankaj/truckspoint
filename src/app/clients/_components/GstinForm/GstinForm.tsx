@@ -5,7 +5,7 @@ import { gstinFormSchema } from "../schema.zod"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { fetchGstinDetails } from "@/app/actions/clients"
+import { fetchGstinDetails } from "@/app/actions/clients.action"
 
 type GstinFormProps = {
   onSuccess: (data: any) => void

@@ -8,6 +8,7 @@ export const makeCall = async (actionObj: {action: ApiActions; options?: Record<
   //   return acc.replace(`:${key}`, value);
   // }, url);
   const completeURL = `${baseUrl}/${url}`; // || `${baseUrl}/api/${urlWithParams}`;
+  console.log("completeURL", baseUrl, endpoints[actionObj.action], completeURL);
   const res = await fetch(completeURL, {
     method,
     headers: {

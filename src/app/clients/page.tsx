@@ -1,4 +1,4 @@
-import { fetchAllClients } from "../actions/clients";
+import { fetchAllClients } from "../actions/clients.action";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

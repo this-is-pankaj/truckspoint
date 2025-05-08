@@ -1,4 +1,4 @@
-import { createClient } from "@/app/actions/clients";
+import { createClient } from "@/app/actions/clients.action";
 import ClientFormWrapper from "../_components/ClientFormWrapper/ClientFormWrapper";
 import { ClientFormSchema } from "../_components/schema.zod";
 import { redirect } from "next/navigation";

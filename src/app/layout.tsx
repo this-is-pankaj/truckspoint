@@ -31,6 +31,7 @@ export default function RootLayout({
 }>) {
   const appLinks = [
     { name: "Clients", href: "/clients" },
+    { name: "Tenants", href: "/tenants" },
   ]
   return (
     <html lang="en">

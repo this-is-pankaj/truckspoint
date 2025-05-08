@@ -1,0 +1,24 @@
+import { NewTenantSchema } from "@/app/tenants/_components/schema.zod";
+import { makeCall } from "../makeCall";
+
+export const createTenant = async (tenant: NewTenantSchema) => {
+  try {
+    const data = await makeCall({ action: 'createTenant', options: {}}, tenant);
+    return data;
+  } catch (error) {
+    console.error("Error creating tenant:", error);
+    throw new Error("Failed to create tenant");
+  }
+}
+
+export const fetchTenants = async () => {
+  try {
+    const data = await makeCall({ action: 'getAllTenants', options: {}});
+    console.log("Fetched tenants:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching tenants:", error);
+    throw new Error("Failed to fetch tenants");
+  }
+}
+

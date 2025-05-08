@@ -1,6 +1,6 @@
 'use server';
 
-import { authenticateUser, createUser } from "@/lib/services/user";
+import { authenticateUser, createUser } from "@/lib/services/users/user";
 import { LoginFormSchema, SignupFormSchema } from "../login/_components/schema.zod";
 
 export async function logUserInAction(credentials: LoginFormSchema) {

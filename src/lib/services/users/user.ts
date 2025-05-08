@@ -1,5 +1,5 @@
-import { LoginCredentials, NewUser } from "../types";
-import { makeCall } from "./makeCall";
+import { LoginCredentials, NewUser } from "../../types";
+import { makeCall } from "../makeCall";
 
 export const authenticateUser = async (credentials: LoginCredentials) => {
   try {
