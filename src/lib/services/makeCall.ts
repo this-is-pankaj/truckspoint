@@ -21,7 +21,7 @@ export const makeCall = async (actionObj: { action: ApiActions; options?: Record
     body: body ? JSON.stringify(body) : undefined,
     credentials: 'same-origin',
   });
-  console.log("Response from API:", res);
+  
   if (!res.ok) {
     throw new Error("Failed to make API call");
   }

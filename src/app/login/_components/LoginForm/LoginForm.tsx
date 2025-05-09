@@ -9,11 +9,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { logUserInAction } from "@/app/actions/auth.action";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type LoginFormProps = {}
 
 const LoginForm = ({  }: LoginFormProps) => {
   const [invalidCredentials, setInvalidCredentials] = useState(false)
+  const router = useRouter()
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -27,9 +29,9 @@ const LoginForm = ({  }: LoginFormProps) => {
   const handleSubmit = async (formData: LoginFormSchema) => {
     try {
       const res = await logUserInAction(formData);
-      console.log("Login response", res)
       if (res.status === 200) {
         console.log("Login successful", res)
+        router.replace('/');
         // handle success
       } else {
         if(res.status === 401) {
