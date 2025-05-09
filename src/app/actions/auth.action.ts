@@ -12,7 +12,11 @@ export async function logUserInAction(credentials: LoginFormSchema) {
     // createSession(rawRes.headers.get('set-cookie') || '');
     const cookie = rawRes.headers.get('set-cookie') || '';
     const cookieStore = await cookies()
-    cookieStore.set('session', cookie);
+    cookieStore.set('session', cookie, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
     return {
       status: rawRes.status,
     }

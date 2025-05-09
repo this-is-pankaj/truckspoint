@@ -12,6 +12,7 @@ export const makeCall = async (actionObj: { action: ApiActions; options?: Record
   const completeURL = `${baseUrl}/${url}?${urlParamsSerialized}`; // || `${baseUrl}/api/${urlWithParams}`;
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get('session');
+  console.log('completeURL', completeURL);
   const res = await fetch(completeURL, {
     method,
     headers: {
@@ -27,5 +28,10 @@ export const makeCall = async (actionObj: { action: ApiActions; options?: Record
   }
 
   const data = await res.json();
-  return { data, rawRes: res };
+  return { data, rawRes: new Response(JSON.stringify(data), {
+    headers: {
+      'Set-Cookie': res.headers.get('set-cookie') ?? '',
+      'Content-Type': 'application/json',
+    }
+  }) };
 }
