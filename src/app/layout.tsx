@@ -8,6 +8,9 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AppSidebar } from "@/components/SideBarNavigation/SideBarNavigation";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,11 +41,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
-        <Header>
+        <SidebarProvider>
+          {/* <Header> */}
           {/* <NavigationBar>
             <Navigations links={appLinks} />
           </NavigationBar> */}
-          <NavigationMenu>
+          {/* <NavigationMenu>
             <NavigationMenuList>
               {
                 appLinks.map((link) => (
@@ -72,10 +76,25 @@ export default function RootLayout({
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </Header>
-        <main className="p-8 flex flex-col h-screen">
+        </Header> */}
+          <AppSidebar />
+          {/* <main className="p-8 flex flex-col h-screen">
           {children}
-        </main>
+        </main> */}
+          <SidebarInset>
+            <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+              <div className="flex items-center gap-2 px-4">
+                <SidebarTrigger className="-ml-1" />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+              </div>
+            </header>
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+              <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
+                {children}
+              </div>
+            </div>
+          </SidebarInset>
+        </SidebarProvider>
       </body>
     </html>
   );
