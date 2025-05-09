@@ -81,11 +81,11 @@ const SignupForm = ({ }: SignupFormProps) => {
               {/* <FormMessage className="text-xs" /> */}
             </FormItem>
           }} />
-          <FormField control={form.control} name="phoneNumber" render={({ field }) => {
+          <FormField control={form.control} name="mobileNumber" render={({ field }) => {
             return <FormItem className="flex-1">
-              <FormLabel>Phone number:</FormLabel>
+              <FormLabel>Mobile number:</FormLabel>
               <FormControl>
-                <Input placeholder="Phone number" {...field} />
+                <Input placeholder="Mobile number" {...field} />
               </FormControl>
               {/* <FormMessage className="text-xs" /> */}
             </FormItem>

@@ -16,14 +16,14 @@ export async function logUserInAction(credentials: LoginFormSchema) {
 }
 
 export async function signUserUpAction(userInformation: SignupFormSchema) {
-  const { firstName, lastName, email, password, phoneNumber, middleName } = userInformation;
+  const { firstName, lastName, email, password, mobileNumber, middleName } = userInformation;
   try {
     return await createUser({
       firstName,
       lastName,
       email,
       password,
-      phoneNumber,
+      mobileNumber,
       middleName,
     });
   } catch (err: any) {

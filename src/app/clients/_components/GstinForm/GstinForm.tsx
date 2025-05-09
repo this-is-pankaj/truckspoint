@@ -9,9 +9,10 @@ import { fetchGstinDetailsAction } from "@/app/actions/clients.action"
 
 type GstinFormProps = {
   onSuccess: (data: any) => void
+  onSkipGstin: () => void
 }
 
-const GstinForm = ({ onSuccess }: GstinFormProps) => {
+const GstinForm = ({ onSuccess, onSkipGstin }: GstinFormProps) => {
   const gstForm = useForm({
     resolver: zodResolver(gstinFormSchema),
     defaultValues: {
@@ -30,6 +31,10 @@ const GstinForm = ({ onSuccess }: GstinFormProps) => {
     }
   }
 
+  const skipGstin = () => {
+    onSkipGstin()
+  }
+
   return (
     <Form {...gstForm}>
       <form onSubmit={gstForm.handleSubmit(handleFetchDetails)} className="flex flex-col gap-4">
@@ -45,9 +50,14 @@ const GstinForm = ({ onSuccess }: GstinFormProps) => {
             <FormMessage />
           </FormItem>
         }} />
-        <Button type="submit" className="m-auto max-w-[120px]">
-          Fetch Details
-        </Button>
+        <div className="flex flex-col md:flex-row gap-4">
+          <Button type="submit" className="m-auto min-w-[120px]">
+            Fetch Details
+          </Button>
+          <Button type="button" variant="secondary" className="m-auto" onClick={skipGstin}>
+            Proceed without GSTIN
+          </Button>
+        </div>
       </form>
     </Form>
   )

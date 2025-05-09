@@ -3,7 +3,7 @@ export type NewUser = {
   lastName: string;
   email: string;
   password: string;
-  phoneNumber: string;
+  mobileNumber: string;
   middleName?: string;
 }
 

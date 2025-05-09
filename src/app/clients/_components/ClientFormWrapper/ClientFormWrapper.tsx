@@ -43,12 +43,26 @@ const ClientFormWrapper = ({ onSubmit }: ClientFormWrapperProps) => {
   const handleGSTINFetch = (data: any) => {
     setClientData(structureClientData(data))
   }
+
+  const handleSkipGstin = () => {
+    setClientData({
+      idProof: [],
+      name: '',
+      nameHindi: '',
+      email: [],
+      address: [],
+      mobileNumber: [],
+      phoneNumber: [],
+      clientType: [],
+      clientFreightType: '',
+    })
+  }
   return (
     <>
       {
         !clientData
           ? <div className="m-auto max-w-80">
-            <GstinForm onSuccess={handleGSTINFetch} />
+            <GstinForm onSuccess={handleGSTINFetch} onSkipGstin={handleSkipGstin}/>
           </div>
           : <ClientForm onSubmit={onSubmit} clientData={clientData} />
       }
