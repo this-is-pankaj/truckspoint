@@ -4,6 +4,7 @@ import { makeCall } from "../makeCall";
 export const authenticateUser = async (credentials: LoginCredentials) => {
   try {
     const data = await makeCall({ action: 'login', options: {}}, credentials);
+    console.log("Login response:", data);
     return data;
   } catch(error) {
     console.error("Error Logging in:", error);

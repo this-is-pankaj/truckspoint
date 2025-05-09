@@ -28,24 +28,26 @@ const TenantForm = ({ onSubmit }: TenantFormProps) => {
   return (
     <Form {...form}>
       <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(handleSubmit, (e) => console.log(e))}>
-        <FormField control={form.control} name="name" render={({ field }) => {
-          return <FormItem>
-            <FormLabel>Name:</FormLabel>
-            <FormControl>
-              <Input placeholder="Tenant name" {...field} />
-            </FormControl>
-            {/* <FormMessage className="text-xs" /> */}
-          </FormItem>
-        }} />
-        <FormField control={form.control} name="description" render={({ field }) => {
-          return <FormItem>
-            <FormLabel>Description:</FormLabel>
-            <FormControl>
-              <Input placeholder="Description..." {...field} />
-            </FormControl>
-            {/* <FormMessage className="text-xs" /> */}
-          </FormItem>
-        }} />
+        <div className="flex flex-col md:flex-row gap-4">
+          <FormField control={form.control} name="name" render={({ field }) => {
+            return <FormItem>
+              <FormLabel>Name:</FormLabel>
+              <FormControl>
+                <Input placeholder="Tenant name" {...field} />
+              </FormControl>
+              {/* <FormMessage className="text-xs" /> */}
+            </FormItem>
+          }} />
+          <FormField control={form.control} name="description" render={({ field }) => {
+            return <FormItem>
+              <FormLabel>Description:</FormLabel>
+              <FormControl>
+                <Input placeholder="Description..." {...field} />
+              </FormControl>
+              {/* <FormMessage className="text-xs" /> */}
+            </FormItem>
+          }} />
+        </div>
 
         <Button type="submit">Create</Button>
       </form>

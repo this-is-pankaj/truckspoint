@@ -2,11 +2,20 @@
 
 import { authenticateUser, createUser } from "@/lib/services/users/user";
 import { LoginFormSchema, SignupFormSchema } from "../login/_components/schema.zod";
+import { createSession } from "@/lib/session";
+import { cookies } from "next/headers";
 
 export async function logUserInAction(credentials: LoginFormSchema) {
   const { username, password, rememberMe = false } = credentials;
   try {
-    return await authenticateUser({ username, password, rememberMe })
+    const { data, rawRes } = await authenticateUser({ username, password, rememberMe })
+    // createSession(rawRes.headers.get('set-cookie') || '');
+    const cookie = rawRes.headers.get('set-cookie') || '';
+    const cookieStore = await cookies()
+    cookieStore.set('session', cookie);
+    return {
+      status: rawRes.status,
+    }
   } catch (err: any) {
     return {
       status: err.status,
@@ -18,7 +27,7 @@ export async function logUserInAction(credentials: LoginFormSchema) {
 export async function signUserUpAction(userInformation: SignupFormSchema) {
   const { firstName, lastName, email, password, mobileNumber, middleName } = userInformation;
   try {
-    return await createUser({
+    const { data, rawRes } = await createUser({
       firstName,
       lastName,
       email,
@@ -26,6 +35,9 @@ export async function signUserUpAction(userInformation: SignupFormSchema) {
       mobileNumber,
       middleName,
     });
+    return {
+      status: rawRes.status,
+    }
   } catch (err: any) {
     return {
       status: err.status || 500,

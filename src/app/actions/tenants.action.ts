@@ -1,9 +1,10 @@
 import { createTenant, fetchTenants } from "@/lib/services/tenants/tenant"
-import { NewTenantSchema } from "../tenants/_components/schema.zod"
+import { NewTenantSchema } from "../(auth)/tenants/_components/schema.zod"
 
 export async function getAllTenantsAction() {
   try {
-    return await fetchTenants();
+    const {data } = await fetchTenants();
+    return data;
   } catch (err: any) {
     return {
       status: err.status || 500,
@@ -14,7 +15,8 @@ export async function getAllTenantsAction() {
 
 export async function createTenantAction(tenant: NewTenantSchema) {
   try {
-    return await createTenant(tenant);
+    const {data} = await createTenant(tenant);
+    return data;
   } catch (err: any) {
     return {
       status: err.status || 500,

@@ -3,7 +3,7 @@ import { EditIcon, Network, PlusIcon, TrashIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { NewTenantSchema } from "./_components/schema.zod"
-import { getAllTenantsAction } from "../actions/tenants.action"
+import { getAllTenantsAction } from "../../actions/tenants.action"
 
 const Tenants = async () => {
   const listOfTenants: NewTenantSchema[] = await getAllTenantsAction();
