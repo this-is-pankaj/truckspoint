@@ -23,4 +23,8 @@ export const branchesEndpoints = {
     method: "POST",
     url: "api/branch/assign",
   },
+  updateBranch: {
+    method: "PATCH",
+    url: "api/branch/:id",
+  },
 }

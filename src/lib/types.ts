@@ -35,12 +35,12 @@ export type TenantSummary = {
   tenantId: string;
   name: string;
   description: string;
-  branch: BranchSummary[]
+  branch: BranchDetails[]
 }
 
-export type BranchSummary = BranchSchema
+export type BranchDetails = BranchSchema
 
-export type BranchBasicInfo = {
+export type BranchSummary = {
   branchId: string;
   name: string;
   description: string;

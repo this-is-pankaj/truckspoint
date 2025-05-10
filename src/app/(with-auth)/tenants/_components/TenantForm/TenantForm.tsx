@@ -6,6 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import AddressFormFields from "@/app/(shared)/_components/AddressFormFields/AddressFormFields";
+import { useRouter } from "next/navigation";
 
 type TenantFormProps = {
   onSubmit: (data: NewTenantSchema) => void
@@ -30,6 +31,7 @@ const initValue = {
 }
 
 const TenantForm = ({ onSubmit }: TenantFormProps) => {
+  const router = useRouter()
   const form = useForm<NewTenantSchema>({
     resolver: zodResolver(newTenantSchema),
     defaultValues: {
@@ -43,6 +45,11 @@ const TenantForm = ({ onSubmit }: TenantFormProps) => {
     // validate the form data and if all looks good, call the onSubmit function
     onSubmit(formData)
   }
+
+  const handleCancel = () => {
+    router.push('/tenants')
+  }
+
   return (
     <Form {...form}>
       <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(handleSubmit, (e) => console.log(e))}>
@@ -90,7 +97,10 @@ const TenantForm = ({ onSubmit }: TenantFormProps) => {
           {/* <AddressManager title="Address" register={form.register as any} control={form.control as any} name="branch.address" allowNew={false} /> */}
           <AddressFormFields initValue={initValue.branch.address} form={form} id="create-tenant-form" name="branch.address" />
         </div>
-        <Button type="submit" className="min-w-32">Create</Button>
+        <div className="flex flex-col md:flex-row gap-4">
+          <Button type="submit" className="cursor-pointer">Create</Button>
+          <Button type="button" variant="secondary" className="cursor-pointer" onClick={handleCancel}>Cancel</Button>
+        </div>
       </form>
     </Form>
   );

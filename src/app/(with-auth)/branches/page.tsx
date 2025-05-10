@@ -81,9 +81,6 @@ const Branches = async () => {
                         <EditIcon />
                       </Button>
                       <Button variant='ghost'>
-                        <Network />
-                      </Button>
-                      <Button variant='ghost'>
                         <TrashIcon />
                       </Button>
                     </TableCell>

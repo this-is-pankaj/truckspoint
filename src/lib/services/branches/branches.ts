@@ -1,7 +1,7 @@
 'use server';
 
 import { makeCall } from "../makeCall";
-import { BranchBasicInfo } from "@/lib/types";
+import { BranchSummary } from "@/lib/types";
 
 export const createBranch= async (branch: any) => {
   try {
@@ -13,7 +13,7 @@ export const createBranch= async (branch: any) => {
   }
 }
 
-export const fetchBranches = async (): Promise<{data: BranchBasicInfo[]; rawRes: Response}> => {
+export const fetchBranches = async (): Promise<{data: BranchSummary[]; rawRes: Response}> => {
   try {
     const data = await makeCall({ action: 'getAllBranches', options: {}});
     console.log("Fetched Branches:", data);
