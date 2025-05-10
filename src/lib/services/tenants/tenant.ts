@@ -1,4 +1,4 @@
-import { NewTenantSchema } from "@/app/(auth)/tenants/_components/schema.zod";
+import { NewTenantSchema } from "@/app/(with-auth)/tenants/_components/schema.zod";
 import { makeCall } from "../makeCall";
 
 export const createTenant = async (tenant: NewTenantSchema) => {

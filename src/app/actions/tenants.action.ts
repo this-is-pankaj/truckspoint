@@ -1,5 +1,5 @@
 import { createTenant, fetchTenants } from "@/lib/services/tenants/tenant"
-import { NewTenantSchema } from "../(auth)/tenants/_components/schema.zod"
+import { NewTenantSchema } from "../(with-auth)/tenants/_components/schema.zod"
 
 export async function getAllTenantsAction() {
   try {
