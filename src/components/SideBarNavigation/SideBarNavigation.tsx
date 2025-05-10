@@ -8,6 +8,7 @@ import {
   Frame,
   GalleryVerticalEnd,
   Map,
+  Network,
   PieChart,
   Settings2,
   SquareTerminal,
@@ -62,6 +63,21 @@ const data = {
         {
           title: "Create Tenant",
           url: "/tenants/new",
+        },
+      ],
+    },
+    {
+      title: "Branches",
+      url: "/branches",
+      icon: Network,
+      items: [
+        {
+          title: "Manage Branches",
+          url: "/branches",
+        },
+        {
+          title: "Create Branch",
+          url: "/branches/new",
         },
       ],
     },

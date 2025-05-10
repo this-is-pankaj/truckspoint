@@ -1,4 +1,4 @@
-import { BranchSchema } from "@/app/(with-auth)/tenants/_components/schema.zod";
+import { BranchAddressSchema, BranchSchema } from "@/app/(with-auth)/tenants/_components/schema.zod";
 
 export type NewUser = {
   firstName: string;
@@ -39,3 +39,15 @@ export type TenantSummary = {
 }
 
 export type BranchSummary = BranchSchema
+
+export type BranchBasicInfo = {
+  branchId: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  primary: boolean;
+  address: BranchAddressSchema
+}

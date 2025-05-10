@@ -1,3 +1,4 @@
+import { branchesEndpoints } from "./_endpoints/branches";
 import { clientsEndpoints } from "./_endpoints/clients";
 import { tenantsEndpoints } from "./_endpoints/tenants";
 
@@ -12,6 +13,7 @@ export const endpoints = {
   },
   ...tenantsEndpoints,
   ...clientsEndpoints,
+  ...branchesEndpoints,
 } as const;
 
 export type ApiActions = keyof typeof endpoints;
