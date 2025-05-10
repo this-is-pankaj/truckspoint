@@ -25,14 +25,15 @@ const branchAddressSchema = z.object({
   pincode: z.string().regex(/^[0-9]{6}$/, {
     message: "Pincode should be 6 digits",
   }),
-  landmark: z.string().optional(),
+  landmark: z.string(),
+  coordinates: z.array(z.number()),
 })
 
 const branchSchema = z.object({
   name: z.string().min(1, {
     message: "Branch name is required",
   }),
-  description: z.string().optional(),
+  description: z.string(),
   primary: z.boolean().refine((val) => val === true, {
     message: "Primary branch is required",
   }),
@@ -43,7 +44,8 @@ export const newTenantSchema = z.object({
   name: z.string().min(1, {
     message: "Tenant name is required",
   }),
-  description: z.string().optional(),
+  description: z.string(),
+  branch: branchSchema,
 })
 
 export type NewTenantSchema = z.infer<typeof newTenantSchema>

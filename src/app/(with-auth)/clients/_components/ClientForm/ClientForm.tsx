@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import ContactListManager from "../ContactListManager/ContactListManager"
 import { Button } from "@/components/ui/button"
 import IdProofManager from "../IdProofManager/IdProofManager"
-import AddressManager from "../AddressManager/AddressManager"
+import AddressManager from "../../../../(shared)/_components/AddressManager/AddressManager"
 
 type ClientFormProps = {
   onSubmit: (data: any) => void

@@ -13,12 +13,13 @@ import {
   SquareTerminal,
 } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "../ui/sidebar"
-import { ComponentProps } from "react"
+import { ComponentProps, Suspense, useEffect, useState } from "react"
 import { NavMain } from "./NavMain"
 import { NavProjects } from "./NavProjects"
 import { NavUser } from "./NavUser"
 import Image from "next/image"
 import { TeamSwitcher } from "./TeamSwitcher"
+import { getAllTenantsAction } from "@/app/actions/tenants.action"
 
 
 // This is sample data.
@@ -144,10 +145,26 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
+  // const fetchTenants = async () => {
+  //   "use server"
+  //   const res = await getAllTenantsAction()
+  //   console.log("Tenants list from appsidebar", res)
+  // }
+  const [tenants, setTenants] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllTenantsAction()
+      setTenants(data)
+    }
+    fetchData()
+  }, [])
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <Suspense fallback={<div className="h-8 w-8 animate-pulse bg-muted rounded-full" />}>
+          <TeamSwitcher teams={tenants} key={tenants.length} />
+        </Suspense>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

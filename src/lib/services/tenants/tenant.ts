@@ -1,3 +1,5 @@
+'use server';
+
 import { NewTenantSchema } from "@/app/(with-auth)/tenants/_components/schema.zod";
 import { makeCall } from "../makeCall";
 

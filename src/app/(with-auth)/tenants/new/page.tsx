@@ -10,7 +10,7 @@ const NewTenantForm = () => {
     redirect("/tenants");
   }
   return (
-    <div className="shadow-md p-8 bg-white rounded-md md:w-80">
+    <div className="shadow-md p-8 bg-white rounded-md">
       <TenantForm onSubmit={handleSubmit}/>
     </div>
   );

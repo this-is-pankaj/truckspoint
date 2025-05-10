@@ -13,8 +13,14 @@ import { useRouter } from "next/navigation";
 
 type LoginFormProps = {}
 
-const LoginForm = ({  }: LoginFormProps) => {
-  const [invalidCredentials, setInvalidCredentials] = useState(false)
+const errorMessageMapper = {
+  '401': 'Invalid username or password',
+  '500': 'Error logging you in. Please try again later.',
+  'default': 'An unknown error occurred. Please try again later.',
+}
+
+const LoginForm = ({ }: LoginFormProps) => {
+  const [errorStatusCode, setErrorStatusCode] = useState<string | undefined>()
   const router = useRouter()
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
@@ -34,14 +40,13 @@ const LoginForm = ({  }: LoginFormProps) => {
         router.replace('/');
         // handle success
       } else {
-        if(res.status === 401) {
-          setInvalidCredentials(true)
-        }
+        setErrorStatusCode(res.status.toString())
         console.log("Login failed")
         // handle failure
       }
-    } catch(exc: any) {
+    } catch (exc: any) {
       console.log('Exception while logging in', JSON.stringify(exc))
+      setErrorStatusCode('500')
     }
   }
 
@@ -81,9 +86,10 @@ const LoginForm = ({  }: LoginFormProps) => {
           </FormItem>
         }
         } />
-        { invalidCredentials
-          ? <p className="text-red-600 text-xs">Invalid username or password</p>
-          : null
+        {
+          errorStatusCode
+            ? <p className="text-red-600 text-xs">{errorMessageMapper[errorStatusCode as keyof typeof errorMessageMapper] || errorMessageMapper.default}</p>
+            : null
         }
         <Button variant='default' type="submit" disabled={!form.formState.isValid}>Login</Button>
       </form>
