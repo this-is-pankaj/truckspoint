@@ -1,13 +1,12 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { EditIcon, Network, PlusIcon, TrashIcon } from "lucide-react"
+import { Check, EditIcon, Network, PlusIcon, TrashIcon, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { getAllBranchesAction } from "@/app/actions/branches.action"
-import { Switch } from "@/components/ui/switch"
 
 const Branches = async () => {
   const {data: listOfBranches } = await getAllBranchesAction();
-  const tableColumns = ["Name", "Description", "City/ State", "Created on", "Primary", "Payment status", "Actions"]
+  const tableColumns = ["Name", "Description", "City/ State", "Created on", "Primary","Payment status",  "Active", "Actions"]
   if (!listOfBranches) {
     return (
       <div className="flex flex-col gap-8">
@@ -57,13 +56,25 @@ const Branches = async () => {
                     <TableCell>
                       {client.createdAt}
                     </TableCell>
-                    <TableCell>
-                      <Switch value={client.primary ? 'on': ''}/>
+                    <TableCell className="flex justify-center">
+                      {
+                        !client.primary
+                          ? null
+                          : <Check className="text-green-600" />
+                      }
                     </TableCell>
                     <TableCell>
                       <Link href={`/tenants/payments`}>
                         Paid until 2024-01-01
                       </Link>
+                    </TableCell>
+
+                    <TableCell className="flex justify-center">
+                      {
+                        client.isDeleted
+                          ? <X className="text-red-600" />
+                          : <Check className="text-green-600" />
+                      }
                     </TableCell>
                     <TableCell>
                       <Button variant='ghost'>

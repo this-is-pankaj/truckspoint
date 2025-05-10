@@ -49,5 +49,6 @@ export type BranchBasicInfo = {
   createdBy: string;
   updatedBy: string;
   primary: boolean;
+  isDeleted: boolean;
   address: BranchAddressSchema
 }
