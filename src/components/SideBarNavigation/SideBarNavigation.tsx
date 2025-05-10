@@ -18,8 +18,10 @@ import { NavMain } from "./NavMain"
 import { NavProjects } from "./NavProjects"
 import { NavUser } from "./NavUser"
 import Image from "next/image"
-import { TeamSwitcher } from "./TeamSwitcher"
 import { getAllTenantsAction } from "@/app/actions/tenants.action"
+import { getActiveTenantId } from "@/app/actions/auth.action"
+import { TenantSummary } from "@/lib/types"
+import { TenantSwitcher } from "./TenantSwitcher"
 
 
 // This is sample data.
@@ -145,17 +147,14 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
-  // const fetchTenants = async () => {
-  //   "use server"
-  //   const res = await getAllTenantsAction()
-  //   console.log("Tenants list from appsidebar", res)
-  // }
-  const [tenants, setTenants] = useState([])
+  const [tenants, setTenants] = useState<{all: TenantSummary[]; active: TenantSummary | null}>({all: [], active: null})
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllTenantsAction()
-      setTenants(data)
+      const activeTenantId = await getActiveTenantId()
+      const activeTenant = data.find((tenant: TenantSummary) => tenant.tenantId === activeTenantId)
+      setTenants({all: data, active: activeTenant})
     }
     fetchData()
   }, [])
@@ -163,7 +162,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <Suspense fallback={<div className="h-8 w-8 animate-pulse bg-muted rounded-full" />}>
-          <TeamSwitcher teams={tenants} key={tenants.length} />
+          <TenantSwitcher teams={tenants.all} active={tenants.active} key={tenants.all.length} />
         </Suspense>
       </SidebarHeader>
       <SidebarContent>

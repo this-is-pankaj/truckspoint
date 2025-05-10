@@ -24,3 +24,13 @@ export const fetchTenants = async () => {
   }
 }
 
+export const switchTenant = async (tenantId: string) => {
+  try {
+    const data = await makeCall({ action: 'switchTenant' }, { tenantId });
+    return data;
+  } catch (error) {
+    console.error("Error switching tenant:", error);
+    throw new Error("Failed to switch tenant");
+  }
+}
+

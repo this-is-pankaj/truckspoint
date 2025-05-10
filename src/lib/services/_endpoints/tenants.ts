@@ -11,4 +11,8 @@ export const tenantsEndpoints = {
     url: 'api/tenant',
     method: 'POST',
   },
+  switchTenant: {
+    url: 'api/tenant/switch',
+    method: 'POST',
+  },
 };

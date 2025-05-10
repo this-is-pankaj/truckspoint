@@ -18,25 +18,30 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { useState } from "react"
+import { switchTenantAction } from "@/app/actions/tenants.action"
+import { TenantSummary } from "@/lib/types"
 
-export type TeamSwitcherProps = {
-  teams: {
-    name: string
-    logo?: React.ElementType
-    plan?: string
-    tenantId?: string
-    description?: string
-  }[]
+export type TenantSwitcherProps = {
+  teams: TenantSummary[]
+  active: TenantSummary | null
 }
 
-export function TeamSwitcher({
-  teams,
-}: TeamSwitcherProps) {
+export function TenantSwitcher({ teams, active }: TenantSwitcherProps) {
   const { isMobile } = useSidebar()
-  
-  const [activeTeam, setActiveTeam] = useState(teams[0])
 
-  if (!activeTeam) {
+  const [activeTenant, setActiveTenant] = useState(active || teams[0])
+
+  const handleTeamChange = async (tenant: any) => {
+    try {
+      const data = await switchTenantAction(tenant.tenantId)
+      console.log("Tenant switched", data)
+      setActiveTenant(tenant)
+    } catch (error) {
+      alert('Unable to switch tenant')
+    }
+  }
+
+  if (!activeTenant) {
     return null
   }
 
@@ -50,13 +55,13 @@ export function TeamSwitcher({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                {/* <activeTeam.logo className="size-4" /> */}
+                {/* <activeTenant.logo className="size-4" /> */}
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {activeTeam.name}
+                  {activeTenant.name}
                 </span>
-                <span className="truncate text-xs">{activeTeam.description}</span>
+                <span className="truncate text-xs">{activeTenant.description}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -73,8 +78,9 @@ export function TeamSwitcher({
             {teams.map((team, index) => (
               <DropdownMenuItem
                 key={team.tenantId}
-                onClick={() => setActiveTeam(team)}
+                onClick={() => handleTeamChange(team)}
                 className="gap-2 p-2"
+                disabled={activeTenant.tenantId === team.tenantId}
               >
                 {team.name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
