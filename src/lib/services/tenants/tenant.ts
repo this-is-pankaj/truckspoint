@@ -2,6 +2,7 @@
 
 import { NewTenantSchema } from "@/app/(with-auth)/tenants/_components/schema.zod";
 import { makeCall } from "../makeCall";
+import { TenantSummary } from "@/lib/types";
 
 export const createTenant = async (tenant: NewTenantSchema) => {
   try {
@@ -13,7 +14,7 @@ export const createTenant = async (tenant: NewTenantSchema) => {
   }
 }
 
-export const fetchTenants = async () => {
+export const fetchTenants = async (): Promise<{data: TenantSummary[]; rawRes: Response}> => {
   try {
     const data = await makeCall({ action: 'getAllTenants', options: {}});
     console.log("Fetched tenants:", data);

@@ -2,11 +2,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { EditIcon, Network, PlusIcon, TrashIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { NewTenantSchema } from "./_components/schema.zod"
 import { getAllTenantsAction } from "../../actions/tenants.action"
+import { TenantSummary } from "@/lib/types"
 
 const Tenants = async () => {
-  const listOfTenants: NewTenantSchema[] = await getAllTenantsAction();
+  const {data: listOfTenants } = await getAllTenantsAction();
   const tableColumns = ["Name", "Description", "Created on", "No. of Branches", "Payment status", "Actions"]
   if (!listOfTenants) {
     return (
@@ -45,18 +45,18 @@ const Tenants = async () => {
               {
                 listOfTenants.map((client) => {
                   return <TableRow key={client.name} className="text-center">
-                    <TableCell>
+                    <TableCell className="text-left">
                       {client.name}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="text-left">
                       {client.description}
                     </TableCell>
                     <TableCell>
-                      {new Date().toLocaleString()}
+                      {client.createdAt}
                     </TableCell>
                     <TableCell>
                       <Link href={`/tenants/:clientId/branches`}>
-                        2
+                        { client.branch.length }
                       </Link>
                     </TableCell>
                     <TableCell>
