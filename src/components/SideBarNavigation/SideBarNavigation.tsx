@@ -151,7 +151,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllTenantsAction()
+      const { status, data } = await getAllTenantsAction()
+      if(status !== 200) {
+        setTenants({all: [], active: null})
+        return
+      }
       const activeTenantId = await getActiveTenantId()
       const activeTenant = data.find((tenant: TenantSummary) => tenant.tenantId === activeTenantId)
       setTenants({all: data, active: activeTenant})

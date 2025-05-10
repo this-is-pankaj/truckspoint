@@ -6,8 +6,11 @@ import { udpateSession } from "@/lib/session";
 
 export async function getAllTenantsAction() {
   try {
-    const { data } = await fetchTenants();
-    return data;
+    const { data, rawRes } = await fetchTenants();
+    return {
+      status: rawRes.status,
+      data
+    };
   } catch (err: any) {
     return {
       status: err.status || 500,
