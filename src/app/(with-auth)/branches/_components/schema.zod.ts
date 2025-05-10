@@ -1,14 +1,10 @@
 import { z } from "zod";
 /*
 {
-  "name": "string",
-  "description": "string",
-  "branch": {
     "name": "string",
     "description": "string",
     "primary": true,
     "address": {}
-  }
 } 
 */
 
@@ -29,25 +25,16 @@ const branchAddressSchema = z.object({
   coordinates: z.array(z.number()),
 })
 
-const branchSchema = z.object({
+export const branchSchema = z.object({
   name: z.string().min(1, {
     message: "Branch name is required",
   }),
   description: z.string(),
-  primary: z.boolean().refine((val) => val === true, {
-    message: "Primary branch is required",
+  primary: z.boolean({
+    message: "Primary field cannot be undefined",
   }),
   address: branchAddressSchema
 })
 
-export const newTenantSchema = z.object({
-  name: z.string().min(1, {
-    message: "Tenant name is required",
-  }),
-  description: z.string(),
-  branch: branchSchema,
-})
-
-export type NewTenantSchema = z.infer<typeof newTenantSchema>
 export type BranchSchema = z.infer<typeof branchSchema>
 export type BranchAddressSchema = z.infer<typeof branchAddressSchema>

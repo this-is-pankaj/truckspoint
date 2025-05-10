@@ -1,17 +1,30 @@
-import { createTenantAction } from "@/app/actions/tenants.action";
-import { NewTenantSchema } from "../_components/schema.zod";
-import TenantForm from "../_components/BranchForm/BranchForm";
 import { redirect } from "next/navigation";
+import { BranchSchema } from "../_components/schema.zod";
+import BranchForm from "../_components/BranchForm/BranchForm";
+import { createBranchAction } from "@/app/actions/branches.action";
 
 const NewTenantForm = () => {
-  const handleSubmit = async (data: NewTenantSchema) => {
+  const handleSubmit = async (data: BranchSchema) => {
     "use server";
-    await createTenantAction(data);
-    redirect("/tenants");
+    await createBranchAction(data);
+    redirect("/branches");
+  }
+  const defaultInitValue = {
+    name: "",
+    description: "",
+    primary: true,
+    address: {
+      streetName: "",
+      landmark: "",
+      pincode: "",
+      city: "",
+      state: "",
+      coordinates: [0, 0]
+    }
   }
   return (
     <div className="shadow-md p-8 bg-white rounded-md">
-      <TenantForm onSubmit={handleSubmit}/>
+      <BranchForm onSubmit={handleSubmit} initValue={defaultInitValue}/>
     </div>
   );
 }

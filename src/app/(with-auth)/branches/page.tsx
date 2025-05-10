@@ -19,7 +19,7 @@ const Branches = async () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-row-reverse gap-4 items-center">
-        <Link href="/tenants/new" className="hover:text-primary-foreground">
+        <Link href="/branches/new" className="hover:text-primary-foreground">
           <div className="flex gap-2 items-center">
             <PlusIcon /> New Branch
           </div>
@@ -42,23 +42,23 @@ const Branches = async () => {
             ? <p className="text-center p-8"> No branches added yet.</p>
             : <TableBody>
               {
-                listOfBranches.map((client) => {
-                  return <TableRow key={client.name} className="text-center">
+                listOfBranches.map((branch) => {
+                  return <TableRow key={branch.name} className="text-center">
                     <TableCell className="text-left">
-                      {client.name}
+                      {branch.name}
                     </TableCell>
                     <TableCell className="text-left">
-                      {client.description}
+                      {branch.description}
                     </TableCell>
                     <TableCell>
-                      {client.address.city}, {client.address.state}
+                      {branch.address.city}, {branch.address.state}
                     </TableCell>
                     <TableCell>
-                      {client.createdAt}
+                      {branch.createdAt}
                     </TableCell>
                     <TableCell className="flex justify-center">
                       {
-                        !client.primary
+                        !branch.primary
                           ? null
                           : <Check className="text-green-600" />
                       }
@@ -71,15 +71,15 @@ const Branches = async () => {
 
                     <TableCell className="flex justify-center">
                       {
-                        client.isDeleted
+                        branch.isDeleted
                           ? <X className="text-red-600" />
                           : <Check className="text-green-600" />
                       }
                     </TableCell>
                     <TableCell>
-                      <Button variant='ghost'>
+                      <Link href={`/branches/${branch.branchId}`}>
                         <EditIcon />
-                      </Button>
+                      </Link>
                       <Button variant='ghost'>
                         <TrashIcon />
                       </Button>

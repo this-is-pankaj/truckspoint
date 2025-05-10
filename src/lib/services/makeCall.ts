@@ -6,11 +6,11 @@ export const makeCall = async (actionObj: { action: ApiActions; options?: Record
   const baseUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
   const { url, method } = endpoints[actionObj.action];
   // If there are options, replace the placeholders in the URL with the actual values
-  // const urlWithParams = Object.entries(actionObj.options || {}).reduce((acc, [key, value]) => {
-  //   return acc.replace(`:${key}`, value);
-  // }, url);
+  const urlWithParams = Object.entries(actionObj.options || {}).reduce((acc, [key, value]) => {
+    return acc.replace(`:${key}`, value);
+  }, url);
   const urlParamsSerialized = new URLSearchParams(actionObj.params);
-  const completeURL = `${baseUrl}/${url}?${urlParamsSerialized}`; // || `${baseUrl}/api/${urlWithParams}`;
+  const completeURL = `${baseUrl}/${urlWithParams}?${urlParamsSerialized}`; // || `${baseUrl}/api/${urlWithParams}`;
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get('session');
   console.log('completeURL', completeURL);

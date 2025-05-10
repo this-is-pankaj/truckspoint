@@ -3,7 +3,6 @@ import { EditIcon, Network, PlusIcon, TrashIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { getAllTenantsAction } from "../../actions/tenants.action"
-import { TenantSummary } from "@/lib/types"
 
 const Tenants = async () => {
   const {data: listOfTenants } = await getAllTenantsAction();
@@ -55,7 +54,7 @@ const Tenants = async () => {
                       {client.createdAt}
                     </TableCell>
                     <TableCell>
-                      <Link href={`/tenants/:clientId/branches`}>
+                      <Link href={`/branches`}>
                         { client.branch.length }
                       </Link>
                     </TableCell>

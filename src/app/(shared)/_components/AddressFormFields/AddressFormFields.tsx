@@ -50,7 +50,7 @@ const AddressFormFields = ({ initValue, form, id, onRemove, name }: AddressFormF
     Object.keys(initValue).map((v, index) => {
       const controlName = `${name}.${v}`
       return (
-        <FormField control={form.control} name={controlName} render={({ field }) => {
+        <FormField key={controlName} control={form.control} name={controlName} render={({ field }) => {
           return <FormItem>
             <FormLabel><span className="capitalize">{v}</span></FormLabel>
             <FormControl>
