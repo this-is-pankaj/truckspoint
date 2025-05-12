@@ -1,6 +1,6 @@
 "use server";
 
-import { createBranch, fetchBranchById, fetchBranches, updateBranch } from "@/lib/services/branches/branches";
+import { createBranch, deleteBranch, fetchBranchById, fetchBranches, updateBranch } from "@/lib/services/branches/branches";
 import { BranchDetails } from "@/lib/types";
 
 export async function getAllBranchesAction() {
@@ -59,6 +59,21 @@ export async function updateBranchAction(branchId: string, branchData: BranchDet
     return {
       status: err.status || 500,
       message: err.statusText || 'Error updating branch',
+    }
+  }
+}
+
+export async function deleteBranchAction(branchId: string) {
+  try {
+    const {data, rawRes} = await deleteBranch(branchId);
+    return {
+      status: rawRes.status,
+      data,
+    }
+  } catch (err: any) {
+    return {
+      status: err.status || 500,
+      message: err.statusText || 'Error deleting branch',
     }
   }
 }

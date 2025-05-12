@@ -2,11 +2,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Check, EditIcon, Network, PlusIcon, TrashIcon, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { getAllBranchesAction } from "@/app/actions/branches.action"
+import { deleteBranchAction, getAllBranchesAction } from "@/app/actions/branches.action"
+import DeleteBranchButton from "./_components/DeleteBranchButton/DeleteBranchButton"
 
 const Branches = async () => {
-  const {data: listOfBranches } = await getAllBranchesAction();
-  const tableColumns = ["Name", "Description", "City/ State", "Created on", "Primary","Payment status",  "Active", "Actions"]
+  const { data: listOfBranches } = await getAllBranchesAction();
+  const tableColumns = ["Name", "Description", "City/ State", "Created on", "Primary", "Payment status", "Active", "Actions"]
   if (!listOfBranches) {
     return (
       <div className="flex flex-col gap-8">
@@ -14,6 +15,19 @@ const Branches = async () => {
         <p className="px-4">No branch found.</p>
       </div>
     )
+  }
+
+  const handleDelete = async (branchId: string) => {
+    'use server'
+    try {
+      const { data, status } = await deleteBranchAction(branchId);
+      if(status !== 200 || !data) {
+        console.error("Error deleting branch:", data);
+        return;
+      }
+    } catch (error) {
+      console.error("Error deleting branch:", error);
+    }
   }
 
   return (
@@ -77,12 +91,12 @@ const Branches = async () => {
                       }
                     </TableCell>
                     <TableCell>
-                      <Link href={`/branches/${branch.branchId}`}>
-                        <EditIcon />
-                      </Link>
-                      <Button variant='ghost'>
-                        <TrashIcon />
-                      </Button>
+                      <div className="flex gap-2 justify-center items-center">
+                        <Link href={`/branches/${branch.branchId}`}>
+                          <EditIcon size={16} />
+                        </Link>
+                        <DeleteBranchButton branchId={branch.branchId} onDelete={handleDelete} />
+                      </div>
                     </TableCell>
                   </TableRow>
                 })
