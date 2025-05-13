@@ -1,7 +1,7 @@
 'use client';
 import { PropsWithChildren } from "react";
-import TopNavbar from "./components/TopNavbar/TopNavbar";
-import SideNavbar from "./components/SideNavbar/SideNavbar";
+import TopNavbar from "./components/TopbarLayout/TopbarLayout";
+import SideNavbar from "./components/SidebarLayout/SidebarLayout";
 
 type AppNavigationBarProps = {
   isAuthenticated: boolean;
