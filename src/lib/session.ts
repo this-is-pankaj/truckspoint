@@ -29,3 +29,15 @@ export async function getPayloadFromCookie() {
   const decodedPayload = await  jwtDecode<JWTPayloadTP>(session)
   return decodedPayload
 }
+
+export async function isLoggedIn() {
+  const cookieStore = await cookies()
+  const sessionCookie = cookieStore.get('session')
+  if (!sessionCookie) return false
+  const session = sessionCookie.value
+  const decodedPayload = await jwtDecode<JWTPayloadTP>(session)
+  if (decodedPayload.exp * 1000 < Date.now()) {
+    return false
+  }
+  return true
+}

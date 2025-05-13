@@ -3,7 +3,7 @@
 import { authenticateUser, createUser } from "@/lib/services/users/user";
 import { LoginFormSchema, SignupFormSchema } from "../login/_components/schema.zod";
 import { cookies } from "next/headers";
-import { getPayloadFromCookie } from "@/lib/session";
+import { getPayloadFromCookie, isLoggedIn } from "@/lib/session";
 
 export async function logUserInAction(credentials: LoginFormSchema) {
   const { username, password, rememberMe = false } = credentials;
@@ -60,12 +60,7 @@ export async function logUserOutAction() {
 }
 
 export async function isUserLoggedIn() {
-  const cookieStore = await cookies()
-  const session = cookieStore.get('session')
-  if (!session) {
-    return false
-  }
-  return session.value
+  return await isLoggedIn();
 }
 
 export const getActiveTenantId = async () => {
