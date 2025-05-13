@@ -24,17 +24,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const appLinks = [
-    { name: "Clients", href: "/clients" },
-    { name: "Tenants", href: "/tenants" },
-  ]
+  const isUserAuthenticated = false; 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
         <GlobalStoreProvider tenants={[]}>
-          <AppNavigationBar isAuthenticated={false}>
+          <AppNavigationBar isAuthenticated={isUserAuthenticated}>
             {children}
           </AppNavigationBar>
         </GlobalStoreProvider>

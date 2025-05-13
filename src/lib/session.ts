@@ -6,7 +6,7 @@ import { JWTPayloadTP } from './types'
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
 
-export async function udpateSession(cookie: string) {
+export async function updateSession(cookie: string) {
   // const session = await encrypt({ session: cookie })
   const cookieStore = await cookies()
   cookieStore.set('session', cookie, {

@@ -2,7 +2,7 @@
 
 import { createTenant, fetchTenants, switchTenant } from "@/lib/services/tenants/tenant"
 import { NewTenantSchema } from "../(with-auth)/tenants/_components/schema.zod";
-import { udpateSession } from "@/lib/session";
+import { updateSession } from "@/lib/session";
 
 export async function getAllTenantsAction() {
   try {
@@ -22,7 +22,7 @@ export async function getAllTenantsAction() {
 export async function createTenantAction(tenant: NewTenantSchema) {
   try {
     const { data, rawRes } = await createTenant(tenant);
-    udpateSession(rawRes.headers.get('set-cookie') ?? '');
+    updateSession(rawRes.headers.get('set-cookie') ?? '');
     return data;
   } catch (err: any) {
     return {
@@ -35,7 +35,7 @@ export async function createTenantAction(tenant: NewTenantSchema) {
 export async function switchTenantAction(tenantId: string) {
   try {
     const { data, rawRes } = await switchTenant(tenantId);
-    udpateSession(rawRes.headers.get('set-cookie') ?? '');
+    updateSession(rawRes.headers.get('set-cookie') ?? '');
     return data;
   } catch (err: any) {
     return {
