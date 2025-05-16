@@ -1,9 +1,9 @@
 'use server';
 
-import { authenticateUser, createUser } from "@/lib/services/users/user";
+import { authenticateUser, createUser, logUserOut } from "@/lib/services/users/user";
 import { LoginFormSchema, SignupFormSchema } from "../login/_components/schema.zod";
 import { cookies } from "next/headers";
-import { getPayloadFromCookie, isLoggedIn } from "@/lib/session";
+import { deleteSession, getPayloadFromCookie, isLoggedIn } from "@/lib/session";
 
 export async function logUserInAction(credentials: LoginFormSchema) {
   const { username, password, rememberMe = false } = credentials;
@@ -51,11 +51,18 @@ export async function signUserUpAction(userInformation: SignupFormSchema) {
 }
 // This function is used to log the user out by deleting the session cookie
 export async function logUserOutAction() {
-  const cookieStore = await cookies()
-  cookieStore.delete('session')
-  return {
-    status: 200,
-    message: 'Logged out successfully',
+  try {
+    // const {data, rawRes} = await logUserOut();
+    await deleteSession()
+    return {
+      status: 200,
+      message: 'Logged out successfully',
+    }
+  } catch (err) {
+    return {
+      status: 500,
+      message: 'Error logging out',
+    }
   }
 }
 

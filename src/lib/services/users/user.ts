@@ -21,3 +21,14 @@ export const createUser = async (userInfo: NewUser) => {
     throw new Error("Failed to sign up");
   }
 }
+
+export const logUserOut = async () => {
+  try {
+    const data = await makeCall({ action: 'logout', options: {}});
+    return data;
+  } catch(error) {
+    console.error("Error logging out:", error);
+    throw new Error("Failed to log out");
+  }
+}
+

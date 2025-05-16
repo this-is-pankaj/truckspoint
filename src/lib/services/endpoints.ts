@@ -11,6 +11,10 @@ export const endpoints = {
     url: 'api/auth/login',
     method: 'POST',
   },
+  logout: {
+    url: 'api/auth/logout',
+    method: 'GET',
+  },
   ...tenantsEndpoints,
   ...clientsEndpoints,
   ...branchesEndpoints,
