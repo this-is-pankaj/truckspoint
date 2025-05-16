@@ -8,7 +8,6 @@ type AppNavigationBarProps = {
 } & PropsWithChildren;
 
 const AppNavigationBar = ({ children, isAuthenticated }: AppNavigationBarProps) => {
-  console.log('isAuthenticated', isAuthenticated);
   return (
     !isAuthenticated
       ? <TopNavbar appLinks={[]}>

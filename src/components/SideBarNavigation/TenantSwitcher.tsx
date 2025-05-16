@@ -20,6 +20,7 @@ import {
 import { useState } from "react"
 import { switchTenantAction } from "@/app/actions/tenants.action"
 import { TenantSummary } from "@/lib/types"
+import Link from "next/link"
 
 export type TenantSwitcherProps = {
   teams: TenantSummary[]
@@ -41,10 +42,6 @@ export function TenantSwitcher({ teams, active }: TenantSwitcherProps) {
     }
   }
 
-  if (!activeTenant) {
-    return null
-  }
-
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -59,9 +56,9 @@ export function TenantSwitcher({ teams, active }: TenantSwitcherProps) {
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {activeTenant.name}
+                  {activeTenant?.name || 'No active tenant'}
                 </span>
-                <span className="truncate text-xs">{activeTenant.description}</span>
+                <span className="truncate text-xs">{activeTenant?.description || ''}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -88,10 +85,10 @@ export function TenantSwitcher({ teams, active }: TenantSwitcherProps) {
             ))}
             <DropdownMenuSeparator />
             <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+              <Link href="/tenants/new" className="flex items-center">
                 <Plus className="size-4" />
-              </div>
-              <div className="font-medium text-muted-foreground">Add team</div>
+                <span className="font-medium text-muted-foreground">Add tenant</span>
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
