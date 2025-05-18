@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   console.log("POST tenants", body);
   // Temporarily push it in the mock data
-  tenantsMockData.push({...body});
+  tenantsMockData.push({...body, tenantId: Date.now().toString()});
   return new Response(JSON.stringify(tenantsMockData), { status: 200 });
 }
 

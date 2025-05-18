@@ -31,7 +31,7 @@ export const makeCall = async (actionObj: { action: ApiActions; options?: Record
   const data = await res.json();
   return { data, rawRes: new Response(JSON.stringify(data), {
     headers: {
-      'Set-Cookie': res.headers.get('set-cookie') ?? '',
+      'Set-Cookie': res.headers.get('set-cookie') ?? process.env.DEFAULT_COOKIE ?? '',
       'Content-Type': 'application/json',
     }
   }) };
